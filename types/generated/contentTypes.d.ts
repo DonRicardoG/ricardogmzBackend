@@ -865,6 +865,38 @@ export interface ApiProjectProject extends Schema.CollectionType {
   };
 }
 
+export interface ApiTechnologyTechnology extends Schema.CollectionType {
+  collectionName: 'technologies';
+  info: {
+    singularName: 'technology';
+    pluralName: 'technologies';
+    displayName: 'technologies';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    tech: Attribute.Media & Attribute.Required;
+    name: Attribute.String & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::technology.technology',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::technology.technology',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -885,6 +917,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::post.post': ApiPostPost;
       'api::project.project': ApiProjectProject;
+      'api::technology.technology': ApiTechnologyTechnology;
     }
   }
 }
